@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import VolunteerTasks from '../VolunteerTasks/VolunteerTasks';
+import './Home.css';
 
 const Home = () => {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/events')
+        fetch('https://fierce-tundra-78625.herokuapp.com/events')
             .then(res => res.json())
             .then(data => setTasks(data))
     }, [])
 
-
     return (
         <>
-            <div>
+            <div className="homePage">
                 <h1>I GROW BY HELPING PEOPLE IN NEED</h1>
-                <InputGroup className="mb-3">
+                <InputGroup className="mb-3 searchBox">
                     <FormControl
                         placeholder="Search ..."
                         aria-label="username"
@@ -32,9 +32,7 @@ const Home = () => {
                 {
                     tasks.map(task => <VolunteerTasks task={task} key={tasks.eventId} />)
                 }
-
             </div>
-
         </>
     );
 };

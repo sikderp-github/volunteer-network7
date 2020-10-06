@@ -1,0 +1,12 @@
+.loginForm{
+    width: 300px;
+    height: 300px;
+    margin-top: 20px;
+    position: center;
+    text-align: center;
+    border: 1px solid darkgray;
+    padding: 5px;
+    margin: 5px auto;
+    box-shadow: 2px 2px 5px rgba(158, 145, 145, 0.2);
+    border-radius: 6px;
+}

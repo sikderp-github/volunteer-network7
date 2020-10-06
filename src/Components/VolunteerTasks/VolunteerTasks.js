@@ -13,7 +13,7 @@ const VolunteerTasks = (props) => {
         <div class="row">
             <div class="col mb-3">
                 <div className="card">
-                    <img style={{ width: '250px', height: '250px' }} src={photoUrl} class="card-img-top" alt="..." />
+                    <img src={photoUrl} class="card-img-top" alt="..." />
                     <div class="card-body">
                         <h5 class="card-title">{title}</h5>
                         <button onClick={() => handleBook(title)} variant="contained" color="primary">

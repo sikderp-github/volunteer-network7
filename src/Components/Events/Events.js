@@ -3,7 +3,7 @@ import FakeData from '../../FakeData/FakeData';
 
 const Events = () => {
     const handleAddEvents = () => {
-        fetch('http://localhost:5000/addEvents', {
+        fetch('https://fierce-tundra-78625.herokuapp.com/addEvents', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

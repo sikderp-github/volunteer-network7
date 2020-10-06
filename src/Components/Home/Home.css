@@ -1,0 +1,14 @@
+.homePage h1{
+    text-align: center;
+}
+.searchBox{
+    position: center;
+    width: 300px;
+    margin: auto;
+}
+.row{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: center;
+}

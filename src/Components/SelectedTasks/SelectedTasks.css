@@ -1,0 +1,21 @@
+.task-container{
+    float: left;
+    grid-template-rows: auto auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+.regtsk{
+height: 150px;
+width: 200px;
+border: 2px solid lightcoral;
+margin: 5px;
+border-radius: 5px;
+align-items: center;
+justify-items: center;
+text-align: center;
+}
+.chosentask h3{
+    margin-top: 10px;
+    text-align: center;
+}

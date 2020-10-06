@@ -7,19 +7,17 @@ import { useHistory, useLocation } from 'react-router-dom';
 // import google from '../../images/logos/google.png';
 import './Login.css';
 
-
-
 const Login = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const history = useHistory();
     const location = useLocation();
-
     const { from } = location.state || { from: { pathname: "/" } };
 
     if (firebase.apps.length === 0) {
         firebase.initializeApp(firebaseConfig);
     }
 
+    // google signin
     const handleGoogleSignIn = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
@@ -28,11 +26,9 @@ const Login = () => {
             const { displayName, email } = result.user;
             const signedUser = { name: displayName, email }
             setLoggedInUser(signedUser);
-            storeAuthToken(); // call backend server
+            storeAuthToken();
 
-            // ...
         }).catch(function (error) {
-            // Handle Errors here.
             var errorCode = error.code;
             console.log(errorCode);
         });
@@ -50,9 +46,10 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className="loginForm">
             <h3>Login With</h3>
             <button onClick={handleGoogleSignIn}>Google Sign in</button>
+            <hr />
             <p>Don't have account ? <a href="/account">Create an account</a></p>
         </div>
     );
