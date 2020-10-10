@@ -8,7 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const { setLoggedInUser } = useContext(UserContext);
     const history = useHistory();
     const location = useLocation();
     const { from } = location.state || { from: { pathname: "/" } };
@@ -21,8 +21,6 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
-            // The signed-in user info.
-            console.log(result);
             const { displayName, email } = result.user;
             const signedUser = { name: displayName, email }
             setLoggedInUser(signedUser);

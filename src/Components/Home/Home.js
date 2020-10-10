@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext} from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import { UserContext } from '../../App';
 import VolunteerTasks from '../VolunteerTasks/VolunteerTasks';
 import './Home.css';
 
 const Home = () => {
-    const [tasks, setTasks] = useState([]);
-
-    useEffect(() => {
-        fetch('https://fierce-tundra-78625.herokuapp.com/events')
-            .then(res => res.json())
-            .then(data => setTasks(data))
-    }, [])
+      const {tasks} =useContext(UserContext);
 
     return (
         <>

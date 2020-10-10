@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,15 +12,19 @@ import NoMatch from './Components/NoMatch/NoMatch';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import SelectedTasks from './Components/SelectedTasks/SelectedTasks';
 import VolunteerReg from './Components/VolunteerReg/VolunteerReg';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const UserContext = createContext();
 
 function App() {
-
+  const [tasks, setTasks] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState({});
+  useEffect(() => {
+    fetch('https://fierce-tundra-78625.herokuapp.com/events')
+      .then(res => res.json())
+      .then(data => setTasks(data))
+  }, [])
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser]} >
+    <UserContext.Provider value={{ loggedInUser, setLoggedInUser, tasks, setTasks }} >
       <h5>Welcome, Mr. {loggedInUser.name} !</h5>
       <Router>
         <Header />
@@ -34,7 +38,7 @@ function App() {
           <Route path="/events/:email">
             <SelectedTasks />
           </Route>
-          <PrivateRoute path="/registration/:title">
+          <PrivateRoute path="/registration/:id">
             <VolunteerReg />
           </PrivateRoute>
           <PrivateRoute path="/events">
@@ -54,7 +58,6 @@ function App() {
           </Route>
         </Switch>
       </Router>
-
     </UserContext.Provider >
   );
 }

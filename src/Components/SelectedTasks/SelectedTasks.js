@@ -3,8 +3,9 @@ import { UserContext } from '../../App';
 import './SelectedTasks.css';
 
 const SelectedTasks = () => {
-    const [loggedInUser] = useContext(UserContext);
-    const [tasks, setTasks] = useState([]);
+    const { loggedInUser } = useContext(UserContext);
+    const [task, setTask] = useState([])
+    console.log(task);
 
     useEffect(() => {
         fetch('https://fierce-tundra-78625.herokuapp.com/tasks?email=' + loggedInUser.email, {
@@ -15,18 +16,26 @@ const SelectedTasks = () => {
             }
         })
             .then(res => res.json())
-            .then(data => setTasks(data))
+            .then(data => setTask(data))
     }, [])
 
-    const deleteTask = (event, id) => {
-        console.log('delete task');
+    useEffect(() => {
+        fetch(`https://fierce-tundra-78625.herokuapp.com/regEvents?email=${loggedInUser.email}`)
+            .then(res => res.json())
+            .then(data => setTask(data))
+
+    }, [])
+
+    const deleteTask = (id) => {
+        console.log(id);
         fetch(`https://fierce-tundra-78625.herokuapp.com/delete/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
             .then(result => {
                 if (result) {
-                    event.target.parentNode.style.display = 'none';
+                    const newEvent = task.filter(tsk => tsk._id !== id)
+                    setTask(newEvent);
                 }
             })
     }
@@ -34,12 +43,12 @@ const SelectedTasks = () => {
         <div className="chosentask">
             <h3>Selected tasks of {loggedInUser.name} </h3>
             {
-                tasks.map(task =>
+                task.map(task1 =>
                     <div className="task-container">
                         <div className="regtsk">
-                            <h3>{task.event.description}</h3>
-                            <p>Time: {task.event.date}</p>
-                            <button onClick={() => deleteTask(tasks._id)}>Cancel</button>
+                            <h3>{task1.event.description}</h3>
+                            <p>Time: {task1.event.date}</p>
+                            <button onClick={() => deleteTask(task1._id)}>Cancel</button>
                         </div>
                     </div>
                 )

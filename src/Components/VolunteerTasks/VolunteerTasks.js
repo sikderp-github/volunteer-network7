@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import './VolunteerTasks.css';
 
 const VolunteerTasks = (props) => {
-    const { title, photoUrl } = props.task;
+    const { title, photoUrl, _id } = props.task;
     const history = useHistory();
 
-    const handleBook = (title) => {
-        history.push(`/registration/${title}`);
+    const handleBook = (id) => {
+        history.push(`/registration/${id}`);
     }
     return (
         <div class="row">
@@ -16,7 +16,7 @@ const VolunteerTasks = (props) => {
                     <img src={photoUrl} class="card-img-top" alt="..." />
                     <div class="card-body">
                         <h5 class="card-title">{title}</h5>
-                        <button onClick={() => handleBook(title)} variant="contained" color="primary">
+                        <button onClick={() => handleBook(_id)} variant="contained" color="primary">
                             Register Now
                         </button>
                     </div>

@@ -1,11 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { UserContext } from '../../App';
 import './VolunteerReg.css'
 
 const VolunteerReg = () => {
-    const [loggedInUser] = useContext(UserContext);
+    const { loggedInUser, tasks } = useContext(UserContext);
+    const [event, setEvent] = useState({});
+    const { id } = useParams();
+
+    useEffect(() => {
+        const filterEvent = tasks.find(task => task._id === id)
+        setEvent(filterEvent);
+    }, [])
     const { register, handleSubmit, errors } = useForm();
     const history = useHistory();
 
@@ -44,7 +51,7 @@ const VolunteerReg = () => {
                 <input name="description" type="text" ref={register({ required: true })} placeholder="Type description" />
                 <br />
 
-                <input name='organize' type="text" ref={register({ required: true })} placeholder="Organize books from the library" />
+                <input name='organize' type="text" defaultValue={event.title} ref={register({ required: true })} placeholder="Organize books from the library" />
                 <br /> <br />
 
                 <button type="submit" name="Registration" >Registration</button>
